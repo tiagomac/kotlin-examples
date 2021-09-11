@@ -12,21 +12,31 @@ fun main() {
 
     val aumento = "1.1".toBigDecimal()
     val salariosComAumento: Array<BigDecimal> = salarios
-        .map {
-            if (it < "5000".toBigDecimal()) {
-                it + "500".toBigDecimal()
-            } else {
-                (it * aumento).setScale(2, RoundingMode.UP)
-            }
-        }
+        .map { calculaAumentoRelativo(it, aumento) }
         .toTypedArray()
 
     println(salariosComAumento.contentToString())
+    
+    println(salarios.somatoria())
+    println(salariosComAumento.somatoria())
 
 }
+
+private fun calculaAumentoRelativo(salario: BigDecimal, aumento: BigDecimal) =
+    if (salario < "5000".toBigDecimal()) {
+        salario + "500".toBigDecimal()
+    } else {
+        (salario * aumento).setScale(2, RoundingMode.UP)
+    }
 
 fun bigDecimalArrayOf(vararg valores: String): Array<BigDecimal> {
     return Array<BigDecimal>(valores.size) { index ->
         valores[index].toBigDecimal()
+    }
+}
+
+fun Array<BigDecimal>.somatoria(): BigDecimal {
+    return this.reduce { acumulador, valor -> 
+        acumulador + valor
     }
 }
