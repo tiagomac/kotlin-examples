@@ -1,5 +1,4 @@
 
-
 fun main() {
     val serie: IntRange = 1.rangeTo(10)
     for (s in serie) {
@@ -33,4 +32,5 @@ fun main() {
     } else {
         println("Não está dentro do intervalo")
     }
+    
 }
